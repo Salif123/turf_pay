@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Login</title>
+</head>
+<body>
+
+    <style>
+        h2{
+
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+            display: block;
+            color: rgb(10, 218, 10);
+            }
+        
+        body{
+           
+            background-color: rgb(243, 243, 243);
+            
+        }
+        .boxs{
+            display: grid;
+            grid-template-columns: 1fr 300px 1fr;
+
+        }
+        .box2{
+            padding-bottom: 30px;
+            background-color: rgb(255, 255, 255);
+            margin-top: 10em;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+            border-radius: 30px;
+            min-width: 300px;
+            max-width: 600px;
+            
+        }
+        button{
+            background-color: rgb(69, 199, 43);
+            border: none;
+            padding: 5px 40px;
+            border-radius: 10px;
+            margin-left: 60px;
+        }
+    </style>
+
+<div class="boxs">
+    <div class="box1"></div>
+    <div class="box2">
+        <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+    </div>
+    <div class="box3">
+
+    </div>
+</div>
+
+</body>
+</html>

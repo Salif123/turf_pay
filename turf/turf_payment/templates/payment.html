@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turf Payment Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555555;
+    }
+
+    input, select, .checkbox-group {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 10px;
+    }
+
+    .checkbox-group label {
+      display: block;
+    }
+
+    input[readonly] {
+      background-color: #f1f1f1;
+      color: #666666;
+      cursor: not-allowed;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      background-color: #007BFF;
+      color: #ffffff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Turf Payment Portal</h1>
+    <form action="process_payment.php" method="POST">
+      <div class="form-group">
+        <label for="user-name">Name:</label>
+        <input type="text" id="user-name" name="user_name" placeholder="Enter your name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="turf">Turf:</label>
+        <select id="turf" name="turf" required>
+          <option value="turf1">Turf 1</option>
+          <option value="turf2">Turf 2</option>
+          <option value="turf3">Turf 3</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="extras">Extras:</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="extras[]" value="corn"> Cones (Rs 15)</label>
+          <label><input type="checkbox" name="extras[]" value="water"> Water (Rs 12)</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="total-amount">Total Amount:</label>
+        <input type="text" id="total-amount" name="total_amount" value="$0" readonly>
+      </div>
+
+      <button type="submit" class="btn">Proceed to Pay</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const extras = document.querySelectorAll('input[name="extras[]"]');
+      const totalAmount = document.getElementById("total-amount");
+
+      extras.forEach(extra => {
+        extra.addEventListener("change", () => {
+          let total = 0;
+          extras.forEach(item => {
+            if (item.checked) {
+              if (item.value === "corn") total += 5;
+              if (item.value === "water") total += 2;
+            }
+          });
+          totalAmount.value = `$${total}`;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

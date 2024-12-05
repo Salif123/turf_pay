@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .item label {
+            font-size: 16px;
+        }
+        .item input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .total {
+            font-size: 18px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping List</h1>
+        <form id="payment-form" action="{% url 'initiate_payment' %}" method="POST">
+            {% csrf_token %}
+            <div class="item">
+                <label for="water">Water (₹10 each)</label>
+                <input type="number" id="water" value="0" min="0" onchange="calculateTotal()">
+            </div>
+            <div class="item">
+                <label for="corn">Corn (₹20 each)</label>
+                <input type="number" id="corn" value="0" min="0" onchange="calculateTotal()">
+            </div>
+            <div class="item">
+                <label for="ointment">Ointment (₹50 each)</label>
+                <input type="number" id="ointment" value="0" min="0" onchange="calculateTotal()">
+            </div>
+            <div class="total">
+                Total: ₹<span id="total">0</span>
+            </div>
+            <input type="hidden" name="amount" id="hidden-total-amount">
+            <button type="button" onclick="proceedToPay()">Proceed to Pay</button>
+        </form>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            const waterPrice = 10;
+            const cornPrice = 20;
+            const ointmentPrice = 50;
+
+            const waterQty = parseInt(document.getElementById('water').value) || 0;
+            const cornQty = parseInt(document.getElementById('corn').value) || 0;
+            const ointmentQty = parseInt(document.getElementById('ointment').value) || 0;
+
+            const total = (waterPrice * waterQty) + (cornPrice * cornQty) + (ointmentPrice * ointmentQty);
+            document.getElementById('total').textContent = total;
+        }
+
+        function proceedToPay() {
+            const total = parseInt(document.getElementById('total').textContent) || 0;
+
+            if (total <= 0) {
+                alert("Please select at least one item.");
+                return;
+            }
+
+            document.getElementById('hidden-total-amount').value = total;
+            document.getElementById('payment-form').submit();
+        }
+    </script>
+</body>
+</html>
