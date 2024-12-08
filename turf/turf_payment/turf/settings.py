@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+mt0sqc*51$#(v*oy8p!0&z#z-i3fa&lvh8jw=vlspm*rg(^ob'
 
 
-RAZORPAY_KEY_ID = 'rzp_test_wcaZTO0TVksBBm'  # Replace with your actual Razorpay Key ID
-RAZORPAY_KEY_SECRET = 'EyqLHPoHTRxdVBOURAz5EniY' 
+RAZORPAY_KEY_ID = '######'  # Replace with your actual Razorpay Key ID
+RAZORPAY_KEY_SECRET = '#######' 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
